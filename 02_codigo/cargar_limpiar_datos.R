@@ -37,3 +37,24 @@ tema_gif <-  theme_minimal() +
         legend.title.align = 0.5, 
         axis.title = element_text(size = 22, hjust = 1, face = "bold", margin = margin(0,0,0,0)),
         axis.text = element_text(size = 20, face = "bold"))
+
+### Importar y transformar datos de PREPs ----
+
+p_2006 <- read_delim("01_datos/PREP2006-Presidente/PREP2006-Presidente.txt", "|", escape_double = FALSE, trim_ws = TRUE, locale = locale(encoding = "latin1"))
+
+p_2009 <- read_delim("01_datos/20090706_2000-listaActas/diputados.txt", "|", escape_double = FALSE, trim_ws = TRUE, skip = 5, locale = locale(encoding = "latin1"))
+
+p_2012 <- read_delim("01_datos/20120702_2000-listaActas/presidente.txt", "|", escape_double = FALSE, trim_ws = TRUE, skip = 5, locale = locale(encoding = "latin1"))
+
+p_2015 <- read_delim("01_datos/20150608_2010-listaActas/diputados.csv", "|", escape_double = FALSE, trim_ws = TRUE, skip = 6, locale = locale(encoding = "latin1"))
+
+# Todos los datos recien impotados fueron previamente obtenidos del INE:
+
+# PREP 2006: http://portalanterior.ine.mx/documentos/proceso_2005-2006/prep2006/bd_prep2006/bd_prep2006.htm
+
+# PREP 2009: http://prep2009.ife.org.mx/PREP2009/20090706_2000-listaActas.tar.gz
+
+# PREP 2012: http://prep2012.ife.org.mx/prep/20120702_2000-listaActas.tar.gz
+
+# PREP 2015: http://prep2015.ine.mx/20150608_2010-listaActas.tar.gz
+
