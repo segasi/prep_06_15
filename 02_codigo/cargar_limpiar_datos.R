@@ -122,3 +122,25 @@ p_2015 <- p_2015 %>%
 
 p_2015 %>% glimpse()
 
+
+### Transformar columnas de votación de partidos y coaliciones ----
+
+# PREP 2012
+p_2012 <- p_2012 %>%
+  mutate_if(is.character, funs(ifelse(. == "Ilegible", NA, ifelse(. == "Sin dato", NA, .)))) %>% 
+  mutate(observaciones = as.factor(observaciones),
+         tipo_casilla = as.factor(tipo_casilla),
+         cryt = as.factor(cryt)) %>% 
+  mutate_if(is.character, as.numeric) 
+
+# PREP 2015
+p_2015 <- p_2015 %>%
+  mutate_if(is.character, funs(ifelse(. == "Ilegible", NA, ifelse(. == "Sin dato", NA, ifelse(. == "-", NA, .))))) %>% 
+  mutate(estado = as.factor(estado),
+         distrito = as.factor(distrito),
+         tipo_casilla = as.factor(tipo_casilla),
+         observaciones = as.factor(observaciones),
+         cryt = as.factor(cryt),
+         sha = as.factor(sha)) %>% 
+  mutate_if(is.character, as.numeric)
+
