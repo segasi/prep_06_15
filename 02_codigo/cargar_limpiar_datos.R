@@ -74,3 +74,51 @@ p_2015 %>% glimpse()
 ### Eliminar primer y último renglón para PREP 2006 ----
 p_2006 <- p_2006 %>% 
   slice(2:n()-1) 
+
+### Transformar columnas de tiempo ----
+
+# PREP 2006
+p_2006 <- p_2006 %>% 
+  mutate(hora_captura = str_replace_all(hora_captura_cedat, "/", "-"), 
+         hora_captura = str_replace_all(hora_captura, "-06", "-2006"),
+         hora_captura = str_replace_all(hora_captura, ",000000", ""),
+         hora_captura = dmy_hms(hora_captura),
+         hora_recepcion = str_replace_all(hora_recepcion_cedat, "/", "-"), 
+         hora_recepcion = str_replace_all(hora_recepcion, "-06", "-2006"),
+         hora_recepcion = str_replace_all(hora_recepcion, ",000000", ""),
+         hora_recepcion = dmy_hms(hora_recepcion)) %>%
+  separate(hora_registro, into = c("hora_registro", "basura"), sep = ",") %>% 
+  select(-basura) %>% 
+  mutate(hora_registro = str_replace_all(hora_registro, "/", "-"), 
+         hora_registro = str_replace_all(hora_registro, "-06", "-2006"),
+         hora_registro = dmy_hms(hora_registro)) 
+
+p_2006 %>% glimpse()
+
+# PREP 2009
+p_2009 <- p_2009 %>% 
+  mutate(hora_acopio = ifelse(hora_acopio == "null", NA, hora_acopio), # Reemplazar valores "null" por NA
+         hora_captura = ifelse(hora_captura == "null", NA, hora_captura), # Reemplazar valores "null" por NA
+         hora_acopio = dmy_hms(hora_acopio), # Transformar tipo de dato a ymd_hms
+         hora_captura = dmy_hms(hora_captura)) # Transformar tipo de dato a ymd_hms
+
+p_2009 %>% glimpse()
+
+
+# PREP 2012
+p_2012 <- p_2012 %>% 
+  mutate(hora_acopio = ifelse(hora_acopio == "null", NA, hora_acopio), # Reemplazar valores "null" por NA
+         hora_captura = ifelse(hora_captura == "null", NA, hora_captura), # Reemplazar valores "null" por NA
+         hora_acopio = ymd_hms(hora_acopio), # Transformar tipo de dato a ymd_hms
+         hora_captura = ymd_hms(hora_captura)) # Transformar tipo de dato a ymd_hms
+
+p_2012 %>% glimpse()
+
+
+# PREP 2015
+p_2015 <- p_2015 %>% 
+  mutate(hora_acopio = ymd_hms(hora_acopio), # Transformar tipo de dato a ymd_hms
+         hora_captura = ymd_hms(hora_captura)) # Transformar tipo de dato a ymd_hms
+
+p_2015 %>% glimpse()
+
