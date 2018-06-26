@@ -347,7 +347,7 @@ p_2015 %>%
 ggsave(filename = paste("2015_num_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
-### Gráfica del % aacumulado de ctas capturadas 2015, por núm. de actas ----
+### Gráfica del % aacumulado de actas capturadas 2015, por núm. de actas ----
 p_2015 %>% 
   arrange(hora_captura) %>% 
   filter(!is.na(ubicacion_casilla)) %>% 
@@ -375,4 +375,55 @@ p_2015 %>%
         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 ggsave(filename = paste("2015_por_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
+
+### Gráfica del % aacumulado de actas capturadas 2006, 2009, 2012 y 2015, por núm. de actas ----
+
+# Calcular diferencia en días de las jornadas electorales de 2006, 2009 y 2012 vs. 2015
+ymd("2015-06-07") - ymd("2006-07-02") # 3262 días
+ymd("2015-06-07") - ymd("2009-07-05") # 2163 días
+ymd("2015-06-07") - ymd("2012-07-01") # 1071 días
+
+# Seleccionar variable y generar variable "hora_captura_comun"
+p_2006_union <- p_2006 %>% select(hora_captura) %>% mutate(año = 2006) %>% arrange(hora_captura) %>% mutate(hora_captura_comun = hora_captura + days(3262))
+p_2009_union <- p_2009 %>% select(hora_captura) %>% mutate(año = 2009) %>% arrange(hora_captura) %>% mutate(hora_captura_comun = hora_captura + days(2163))
+p_2012_union <- p_2012 %>% select(hora_captura) %>% mutate(año = 2012) %>% arrange(hora_captura) %>% mutate(hora_captura_comun = hora_captura + days(1071))
+p_2015_union <- p_2015 %>% select(hora_captura) %>% mutate(año = 2015) %>% arrange(hora_captura) %>% mutate(hora_captura_comun = hora_captura)
+
+# Unir data frames
+p_todos <- rbind(p_2006_union, p_2009_union)
+p_todos <- rbind(p_todos, p_2012_union)
+p_todos <- rbind(p_todos, p_2015_union)
+
+datos <- p_todos %>% 
+  arrange(año, hora_captura) %>% 
+  group_by(año) %>% 
+  mutate(id = 1,
+         acumuladas = cumsum(id), 
+         acumuladas_por = round((acumuladas/max(acumuladas)*100), 10)) %>% 
+  ungroup() 
+
+datos %>%     
+  ggplot() +
+  geom_line(aes(hora_captura_comun, acumuladas_por, group = año, col = factor(año)),  size = 1.5) +
+  scale_color_manual(values = c("grey40", "salmon", "steelblue", "grey80"), labels = c(" 2006 ", " 2009 ", " 2012 ", " 2015 "), guide = guide_legend(title.position = "top", keyheight = 0.4, default.unit = "inch")) +
+  scale_x_datetime(breaks=date_breaks("1 hour"), labels = date_format("%H:%M"))+ 
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 10), labels = comma) +
+  labs(title = "% DE ACTAS CAPTURADAS | PREPs DE 2006, 2009, 2012 Y 2015",
+       subtitle = "Datos de la elección presidencial (2006 y 2012) y diputados federales (2009 y 2015)",
+       x = "\nHora de captura",
+       y = "% acumulado de actas\n",
+       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       color = "Año") + 
+  tema +
+  theme(plot.title = element_text(face = "bold"), 
+        legend.position = c(.8, .1),
+        legend.title = element_text(size = 16),
+        legend.text = element_text(size = 14),
+        legend.direction = "horizontal",
+        legend.title.align = 0,
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+ggsave(filename = paste("2006_2015_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
 
