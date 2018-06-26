@@ -101,7 +101,7 @@ ggsave(filename = paste("2018_frec_edos_num_eleccioens.png", sep = ""), path = "
 
 
 
-### Gráfica: evolución de actas capturadas 2006 ----
+### Gráfica de núm. acumulado de actas capturadas 2006 ----
 p_2006 %>% 
   arrange(hora_captura) %>% 
   # filter(!is.na(ubicacion_casilla)) %>% 
@@ -117,7 +117,7 @@ p_2006 %>%
        subtitle = "Datos de la elección presidencial",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE") +
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
