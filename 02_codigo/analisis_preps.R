@@ -42,3 +42,62 @@ p_2015 %>%
 ggsave(filename = paste("2015_paquetes_sin_acta_prep_por_num_actas_procesadas.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
+
+
+### Cálculo y gráfcia de paquetes sin acta en 2009, 2012 y 2015  ----
+p_2009 %>% 
+  group_by(observaciones) %>% 
+  tally() %>%  
+  mutate(por = round((n/sum(n))*100, 2))
+
+p_2012 %>% 
+  group_by(observaciones) %>% 
+  tally() %>%  
+  mutate(por = round((n/sum(n))*100, 2))
+
+p_2015 %>% 
+  mutate(observaciones_bis = ifelse(str_detect(observaciones, "Sin acta"), "Sin acta", as.character(observaciones))) %>% 
+  group_by(observaciones_bis) %>% 
+  tally() %>%  
+  mutate(por = round((n/sum(n))*100, 2))
+
+
+df_sin_acta <-  data_frame(año = c(2009, 2012, 2015),
+                           por = c(1.35, 1.14, 5.29))
+
+df_sin_acta %>% 
+  ggplot(aes(año, por)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste(por, "%", sep = "")), size = 7, fontface = "bold", vjust = 1.5, col = "white") +
+  scale_x_continuous(breaks = c(2009, 2012, 2015)) +
+  labs(title = "% DE PAQUETES ELECTORALES SIN ACTA PREP, 2009-2015", 
+       x = "",
+       y = "",
+       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE") +
+  tema +
+  theme(axis.text.y = element_blank())
+
+
+ggsave(filename = paste("2009_vs_2012_vs_2015_paquetes_sin_acta_prep.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
+
+### Cálculo y gráfica entidades con ___ elecciones en 2018 ----
+
+df_edos <- data_frame(num_elecciones = c("Tres", "Cuatro", "Cinco", "Seis"), frec = c(2, 7, 15, 8))
+
+
+df_edos %>% 
+  mutate(num_elecciones = fct_relevel(num_elecciones, "Tres", "Cuatro", "Cinco", "Seis")) %>% 
+  ggplot(aes(num_elecciones, frec)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = frec), size = 7, fontface = "bold", vjust = 1.5, col = "white") +
+  labs(title = "NÚM. DE ESTADOS CON __ TIPOS DE ELECCIONES EN 2018", 
+       x = "\nNúm. de elecciones\n",
+       y = "",
+       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE") +
+  tema +
+  theme(axis.text.y = element_blank())
+
+ggsave(filename = paste("2018_frec_edos_num_eleccioens.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
+
