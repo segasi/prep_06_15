@@ -81,7 +81,7 @@ df_sin_acta %>%
 ggsave(filename = paste("2009_vs_2012_vs_2015_paquetes_sin_acta_prep.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
-### Cálculo y gráfica entidades con ___ elecciones en 2018 ----
+### Cálculo y gráfica de entidades con entre tres y seis elecciones en 2018 ----
 
 df_edos <- data_frame(num_elecciones = c("Tres", "Cuatro", "Cinco", "Seis"), frec = c(2, 7, 15, 8))
 
