@@ -73,7 +73,7 @@ df_sin_acta %>%
   labs(title = "% DE PAQUETES ELECTORALES SIN ACTA PREP, 2009-2015", 
        x = "",
        y = "",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE") +
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE") +
   tema +
   theme(axis.text.y = element_blank())
 
@@ -85,7 +85,6 @@ ggsave(filename = paste("2009_vs_2012_vs_2015_paquetes_sin_acta_prep.png", sep =
 
 df_edos <- data_frame(num_elecciones = c("Tres", "Cuatro", "Cinco", "Seis"), frec = c(2, 7, 15, 8))
 
-
 df_edos %>% 
   mutate(num_elecciones = fct_relevel(num_elecciones, "Tres", "Cuatro", "Cinco", "Seis")) %>% 
   ggplot(aes(num_elecciones, frec)) +
@@ -94,7 +93,7 @@ df_edos %>%
   labs(title = "NÚM. DE ESTADOS CON __ TIPOS DE ELECCIONES EN 2018", 
        x = "\nNúm. de elecciones\n",
        y = "",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE") +
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE") +
   tema +
   theme(axis.text.y = element_blank())
 
