@@ -127,3 +127,30 @@ p_2006 %>%
 ggsave(filename = paste("2006_actas_capturadas.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
+
+### Gráfica de núm. acumulado de actas capturadas 2006, por tipo de casilla ----
+p_2006 %>% 
+  arrange(hora_captura) %>% 
+  filter(!is.na(casilla)) %>% 
+  group_by(casilla) %>% 
+  mutate(id = 1,
+         acumuladas = cumsum(id),
+         c_urb_rur = ifelse(casilla == 1, "Urbana", "Rural")) %>% 
+  ungroup() %>% 
+  ggplot() +
+  geom_line(aes(hora_captura, acumuladas, group = c_urb_rur, col = c_urb_rur), size = 1.5) +
+  scale_color_manual(values = c("salmon", "steelblue")) +
+  scale_x_datetime(breaks=date_breaks("1 hour"), labels = date_format("%H:%M"))+ 
+  scale_y_continuous(limits = c(0, 100000), breaks = seq(0, 100000, 10000), labels = comma) +
+  labs(title = "NÚM. DE ACTAS CAPTURADAS, POR TIPO | PREP DE 2006",
+       subtitle = "Datos de la elección presidencial",
+       x = "\nHora de captura",
+       y = "Núm. acumulado de actas\n",
+       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       color = "Tipo de casilla") + 
+  tema +
+  theme(plot.title = element_text(face = "bold"), 
+        legend.position = c(.1, .9),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+ggsave(filename = paste("2006_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
