@@ -58,3 +58,15 @@ p_2015 <- read_delim("01_datos/20150608_2010-listaActas/diputados.csv", "|", esc
 
 # PREP 2015: http://prep2015.ine.mx/20150608_2010-listaActas.tar.gz
 
+### "Limpiar" nombres de variables----
+p_2006 <- p_2006 %>% clean_names()
+p_2006 %>% glimpse()
+
+p_2009 <- p_2009 %>% clean_names()
+p_2009 %>% glimpse()
+
+p_2012 <- p_2012 %>% clean_names()
+p_2012 %>% glimpse()
+
+p_2015 <- p_2015 %>% clean_names()
+p_2015 %>% glimpse()
