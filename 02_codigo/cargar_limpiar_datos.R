@@ -70,3 +70,7 @@ p_2012 %>% glimpse()
 
 p_2015 <- p_2015 %>% clean_names()
 p_2015 %>% glimpse()
+
+### Eliminar primer y último renglón para PREP 2006 ----
+p_2006 <- p_2006 %>% 
+  slice(2:n()-1) 
