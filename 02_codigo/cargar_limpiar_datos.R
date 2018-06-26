@@ -24,3 +24,16 @@ tema <-  theme_minimal() +
         axis.title = element_text(size = 18, hjust = 1, face = "bold", margin = margin(0,0,0,0), family="Didact Gothic Regular"),
         axis.text = element_text(size = 16, face = "bold", family="Didact Gothic Regular"))
 
+### Definir tema de gifs ----
+tema_gif <-  theme_minimal() +
+  theme(plot.title = element_text(size = 30, face = "bold", margin = margin(10,0,10,0)),
+        plot.subtitle = element_text(size = 22, face = "bold", colour = "#666666", margin = margin(0, 0, 20, 0)),
+        plot.caption = element_text(hjust = 0, size = 14),
+        panel.grid = element_line(linetype = 2), 
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_text(size = 18, face = "bold"),
+        legend.text = element_text(size = 16),
+        legend.title.align = 0.5, 
+        axis.title = element_text(size = 22, hjust = 1, face = "bold", margin = margin(0,0,0,0)),
+        axis.text = element_text(size = 20, face = "bold"))
