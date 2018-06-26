@@ -144,3 +144,25 @@ p_2015 <- p_2015 %>%
          sha = as.factor(sha)) %>% 
   mutate_if(is.character, as.numeric)
 
+
+### Generar variable para registrar el número de actas que se tuvieron que procesar en las casillas de cada estado en 2015 ----
+
+# Obtuvimos los datos del número de elecciones por entidad de (i) http://portalanterior.ine.mx/archivos3/portal/historico/recursos/IFE-v2/DECEYEC/DECEYEC-ProcesosElectorales/Calendario-Docs/ISU_Cal_Elect-2015.pdf y (ii) http://portal.te.gob.mx/sites/default/files/calendario/calendario_electoral_2015.pdf
+p_2015 <- p_2015 %>% 
+  mutate(num_act = case_when(estado == "BAJA CALIFORNIA SUR" ~ 4,
+                             estado == "CAMPECHE" ~ 4,
+                             estado == "COLIMA" ~ 4,
+                             estado == "DISTRITO FEDERAL" ~ 3,
+                             estado == "GUANAJUATO" ~ 3,
+                             estado == "GUERRERO" ~ 4,
+                             estado == "JALISCO" ~ 3,
+                             estado == "MÉXICO" ~ 3,
+                             estado == "MICHOACÁN" ~ 4,
+                             estado == "MORELOS" ~ 3,
+                             estado == "NUEVO LEÓN" ~ 4,
+                             estado == "QUERÉTARO" ~ 4,
+                             estado == "SAN LUIS POTOSÍ" ~ 4,
+                             estado == "SONORA" ~ 4,
+                             estado == "TABASCO" ~ 3,
+                             estado == "YUCATÁN" ~ 3),
+         num_act = ifelse(is.na(num_act), 1, num_act))
