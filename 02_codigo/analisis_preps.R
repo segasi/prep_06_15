@@ -316,3 +316,33 @@ p_2015 %>%
         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 ggsave(filename = paste("2015_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
+### Gráfica de núm. acumulado de actas capturadas 2015, por núm. de actas ----
+p_2015 %>% 
+  arrange(hora_captura) %>% 
+  filter(!is.na(ubicacion_casilla)) %>% 
+  group_by(num_act) %>% 
+  mutate(id = 1,
+         acumuladas = cumsum(id), 
+         acumuladas_por = round((acumuladas/max(acumuladas)*100), 1)) %>% 
+  ungroup() %>% 
+  ggplot() +
+  geom_line(aes(hora_captura, acumuladas, group = num_act, col = factor(num_act)), size = 1.5) + 
+  scale_color_manual(values = c("salmon", "steelblue", "grey80"), guide = guide_legend(title.position = "top", keyheight = 0.4, default.unit = "inch"), labels = c(" Una ", " Tres ", " Cuatro ")) +
+  scale_x_datetime(breaks=date_breaks("1 hour"), labels = date_format("%H:%M"))+ 
+  scale_y_continuous(limits = c(0, 70000), breaks = seq(0, 70000, 10000), labels = comma) +
+  labs(title = "NÚM. DE ACTAS CAPTURADAS, POR NÚM. DE ACTAS PROCESADAS EN CASILLA | PREP DE 2015",
+       subtitle = "Datos de la elección de diputados federales",
+       x = "\nHora de captura",
+       y = "Núm. acumulado de actas\n",
+       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       color = "Núm. de actas procesadas") + 
+  tema +
+  theme(plot.title = element_text(face = "bold"), 
+        legend.position = c(.15, .9),
+        legend.direction = "horizontal",
+        legend.title.align = 0,
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+ggsave(filename = paste("2015_num_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
+
