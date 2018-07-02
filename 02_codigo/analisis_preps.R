@@ -44,7 +44,7 @@ ggsave(filename = paste("2015_paquetes_sin_acta_prep_por_num_actas_procesadas.pn
 
 
 
-### Cálculo y gráfcia de paquetes sin acta en 2009, 2012 y 2015  ----
+### Cálculo y gráfica de paquetes sin acta en 2009, 2012 y 2015  ----
 p_2009 %>% 
   group_by(observaciones) %>% 
   tally() %>%  
@@ -146,7 +146,7 @@ p_2006 %>%
        subtitle = "Datos de la elección presidencial",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -171,7 +171,7 @@ p_2009 %>%
        subtitle = "Datos de la elección de diputados federales",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -200,7 +200,7 @@ p_2009 %>%
        subtitle = "Datos de la elección presidencial",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -226,7 +226,7 @@ p_2012 %>%
        subtitle = "Datos de la elección presidencial",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -255,7 +255,7 @@ p_2012 %>%
        subtitle = "Datos de la elección presidencial",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -280,7 +280,7 @@ p_2015 %>%
        subtitle = "Datos de la elección de diputados federales",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -308,7 +308,7 @@ p_2015 %>%
        subtitle = "Datos de la elección de diputados federales",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Tipo de casilla") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -335,7 +335,7 @@ p_2015 %>%
        subtitle = "Datos de la elección de diputados federales",
        x = "\nHora de captura",
        y = "Núm. acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Núm. de actas procesadas") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -347,7 +347,7 @@ p_2015 %>%
 ggsave(filename = paste("2015_num_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
-### Gráfica del % aacumulado de actas capturadas 2015, por núm. de actas ----
+### Gráfica del % acumulado de actas capturadas 2015, por núm. de actas ----
 p_2015 %>% 
   arrange(hora_captura) %>% 
   filter(!is.na(ubicacion_casilla)) %>% 
@@ -365,7 +365,7 @@ p_2015 %>%
        subtitle = "Datos de la elección de diputados federales",
        x = "\nHora de captura",
        y = "% acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Núm. de actas procesadas") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
@@ -377,7 +377,7 @@ p_2015 %>%
 ggsave(filename = paste("2015_por_actas_capturadas_por_tipo.png", sep = ""), path = "03_graficas/actas_capturadas/", width = 15, height = 10, dpi = 100)
 
 
-### Gráfica del % aacumulado de actas capturadas 2006, 2009, 2012 y 2015, por núm. de actas ----
+### Gráfica del % acumulado de actas capturadas 2006, 2009, 2012 y 2015, por núm. de actas ----
 
 # Calcular diferencia en días de las jornadas electorales de 2006, 2009 y 2012 vs. 2015
 ymd("2015-06-07") - ymd("2006-07-02") # 3262 días
@@ -413,7 +413,7 @@ datos %>%
        subtitle = "Datos de la elección presidencial (2006 y 2012) y diputados federales (2009 y 2015)",
        x = "\nHora de captura",
        y = "% acumulado de actas\n",
-       caption = "Sebastián Garrido de Sierra / @segasi / Fuente: INE",
+       caption = "Sebastián Garrido de Sierra / @segasi / Javier Aparicio / @javieraparicio / Fuente: INE",
        color = "Año") + 
   tema +
   theme(plot.title = element_text(face = "bold"), 
